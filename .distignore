@@ -1,0 +1,6 @@
+/.git
+/.distignore
+/.wordpress-org
+/sdk/vendor/overtrue/pinyin/phpstan.neon
+/sdk/composer.lock
+*.github
