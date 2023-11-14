@@ -1,5 +1,9 @@
 {
     "require": {
         "overtrue/pinyin": "^4.1|^5.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
     }
 }
