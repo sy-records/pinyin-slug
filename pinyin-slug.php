@@ -17,13 +17,13 @@ http://www.gnu.org/licenses/gpl.txt
 
 Provided without warranty, including any implied warrant of merchantability or fitness for purpose.
 */
-
 if (!defined('ABSPATH')) {
 	exit;
 }
 
 require_once 'sdk/vendor/autoload.php';
 
+use Composer\InstalledVersions;
 use Overtrue\Pinyin\Pinyin;
 
 add_filter('name_save_pre', 'pinyin_slugs', 0);
@@ -32,7 +32,13 @@ function pinyin_slugs($slug) {
     // We don't want to change an existing slug
 	if ($slug) return $slug;
 
-	$pinyin = Pinyin::permalink($_POST['post_title']);
+	$prettyVersion = InstalledVersions::getPrettyVersion('overtrue/pinyin');
+	if ($prettyVersion >= 5) {
+		$pinyin = Pinyin::permalink($_POST['post_title']);
+	} else {
+		$pinyin = (new Pinyin())->permalink($_POST['post_title']);
+	}
+
 	if (empty($pinyin)) {
 		return $slug;
 	}
