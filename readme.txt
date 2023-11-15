@@ -1,10 +1,11 @@
 === Pinyin Slug ===
-Contributors: williamlong
-Donate link: http://www.williamlong.info/
+Contributors: williamlong, shenyanzhi
+Donate link: https://qq52o.me/sponsor.html
 Tags: pinyin, slug, post, permalinks
 Requires at least: 2.7
-Tested up to: 3.3
-Stable tag: 1.0.0
+Tested up to: 6.4
+Stable tag: 2.0.0
+Requires PHP: 7.1
 
 The Chinese PinYin Slug Wordpress plugin convert Chinese UTF-8 character into English PinYin character from a post slugs to improve SEO.
 
@@ -25,5 +26,11 @@ Download the PinYin Plugin and activate the plugin through the 'Plugins' menu in
 
 == Changelog ==
 
-= 1.0 =
-* First stable version.
+= Stable =
+
+- Compatible with new versions of WordPress.
+- Replace new SDK.
+
+= Other =
+
+see [CHANGELOG.md](https://github.com/sy-records/pinyin-slug/blob/main/CHANGELOG.md).

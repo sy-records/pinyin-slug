@@ -1,43 +1,52 @@
 <?php
 /*
 Plugin Name: PinYin Slug
-Plugin URI: http://www.williamlong.info/archives/1027.html
-Description: Replace Chinese UTF-8 character into Pin Yin  character from a post slugs to improve SEO.
-Version: 1.0.0
-Author: William Long
-Author URI: http://www.williamlong.info
-License: GPL2
-Text Domain: pingyin-slug
+Plugin URI: https://github.com/sy-records/pinyin-slug
+Description: Replace Chinese UTF-8 character into Pin Yin character from a post slugs to improve SEO.
+Version: 2.0.0
+Author: 沈唁
+Author URI: https://qq52o.me
+License: GPL3
 */
 
 /*
 Copyright William Long 2007
 
-Licensed under the terms of the GPL version 2, see:
+Licensed under the terms of the GPL version 3, see:
 http://www.gnu.org/licenses/gpl.txt
 
-Provided without warranty, inluding any implied warrant of merchantability or fitness for purpose.
+Provided without warranty, including any implied warrant of merchantability or fitness for purpose.
 */
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+require_once 'sdk/vendor/autoload.php';
+
+use Composer\InstalledVersions;
+use Overtrue\Pinyin\Pinyin;
 
 add_filter('name_save_pre', 'pinyin_slugs', 0);
 
-function pinyin_slugs($slug) {
+function pinyin_slugs($slug)
+{
     // We don't want to change an existing slug
-	if ($slug) return $slug;
+    if ($slug) {
+        return $slug;
+    }
 
-	global $wpdb;
+    $prettyVersion = InstalledVersions::getPrettyVersion('overtrue/pinyin');
+    if ($prettyVersion >= 5) {
+        $pinyin = Pinyin::permalink($_POST['post_title']);
+    } else {
+        $pinyin = (new Pinyin())->permalink($_POST['post_title']);
+    }
 
-	require("class.Chinese.php");
-	$codeTablesDir = dirname(__FILE__)."/config/";
-	// Replace post title
-	$title = $_POST['post_title'];
-	$chs = new Chinese("UTF8","GB2312", $title,$codeTablesDir);
-	$title = $chs->ConvertIT();	
-	$chs = new Chinese("GB2312","PinYin",$title,$codeTablesDir);
-	$title = $chs->ConvertIT();	
-	$title = str_replace(" ","",$title);
+    if (empty($pinyin)) {
+        return $slug;
+    }
 
-	return sanitize_title($title);
+    return sanitize_title($pinyin);
 }
 
 ?>
