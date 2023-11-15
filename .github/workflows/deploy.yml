@@ -11,3 +11,12 @@ jobs:
       working-directory: sdk
       php: '7.1'
     secrets: inherit
+
+  packaging:
+    needs: deploy
+    uses: sy-records/.github/.github/workflows/wordpress-plugin-packaging.yaml@main
+    with:
+      build: true
+      working-directory: sdk
+      php: '8.0'
+    secrets: inherit
