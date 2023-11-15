@@ -14,9 +14,12 @@ jobs:
 
   packaging:
     needs: deploy
+    strategy:
+      matrix:
+        php: [ '8.0' ]
     uses: sy-records/.github/.github/workflows/wordpress-plugin-packaging.yaml@main
     with:
       build: true
       working-directory: sdk
-      php: '8.0'
+      php: ${{ matrix.php }}
     secrets: inherit
