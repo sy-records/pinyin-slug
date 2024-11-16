@@ -3,7 +3,7 @@ Contributors: williamlong, shenyanzhi
 Donate link: https://qq52o.me/sponsor.html
 Tags: pinyin, slug, post, permalinks
 Requires at least: 4.6
-Tested up to: 6.6
+Tested up to: 6.7
 Stable tag: 2.0.0
 Requires PHP: 7.1
 
